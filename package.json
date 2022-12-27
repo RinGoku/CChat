@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.8.0",
+    "@tanstack/react-query": "^4.20.4",
+    "@trpc/client": "^10.7.0",
+    "@trpc/next": "^10.7.0",
+    "@trpc/react-query": "^10.7.0",
+    "@trpc/server": "^10.7.0",
+    "next": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.21",
+    "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.1",
+    "prisma": "^4.8.0",
+    "typescript": "^4.8.3"
+  }
+}
