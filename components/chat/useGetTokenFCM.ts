@@ -1,6 +1,6 @@
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import { Brand } from "types/brand";
-import { assertFilledString, FilledString } from "types/filledString";
+import { Brand } from "types/common/brand";
+import { assertFilledString, FilledString } from "types/common/filledString";
 
 export type FCMToken = Brand<FilledString, "FCMToken">;
 function asFCMToken(v: unknown): FCMToken {

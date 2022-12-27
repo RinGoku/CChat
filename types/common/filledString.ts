@@ -1,4 +1,4 @@
-import { Brand } from "types/brand";
+import { Brand } from "types/common/brand";
 import { isString } from "types/commonGuard";
 import { PreconditionError } from "types/error";
 
