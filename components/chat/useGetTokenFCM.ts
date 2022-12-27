@@ -5,7 +5,7 @@ import { assertFilledString, FilledString } from "types/filledString";
 export type FCMToken = Brand<FilledString, "FCMToken">;
 function asFCMToken(v: unknown): FCMToken {
   assertFilledString(v, "FCMToken");
-  return v;
+  return v as FCMToken;
 }
 export const useGetTokenFCM = () => {
   // Get registration token. Initially this makes a network call, once retrieved

@@ -10,11 +10,14 @@ import { useRouter } from "next/router";
 import channels from "pages/channels";
 import { firebaseCloudMessaging } from "utils/firebase";
 import firebase from "firebase/app";
-import { getMessaging } from "firebase/messaging";
+import { getMessaging, onMessage } from "firebase/messaging";
 
 const Channel = () => {
   const router = useRouter();
   useEffect(() => {
+    fetch("/api/message").then((res) => {
+      console.log(res);
+    });
     setToken();
 
     // Event listener that listens for the push notification event in the background
@@ -46,7 +49,8 @@ const Channel = () => {
   // Get the push notification message and triggers a toast to display it
   function getMessage() {
     const messaging = getMessaging();
-    messaging.onMessage((message) => {
+    console.log(onMessage);
+    onMessage(messaging, (message) => {
       console.log(message);
     });
   }
