@@ -8,12 +8,12 @@ import {
 import { IconInfoCircle } from "@tabler/icons";
 import { ReturnTypeUseInput } from "hooks/common/useInput";
 
-export const CCEmailInput = (
+export const CCEmailPairInput = (
   props: ReturnTypeUseInput<string> & TextInputProps
 ) => {
   const rightSection = (
     <Tooltip
-      label="メールアドレスを入力してください。"
+      label="メールアドレスを入力することでお相手と自動的にカップル設定されます。この設定はマイページからも可能です。"
       position="top-end"
       withArrow
       transition="pop-bottom-right"
@@ -29,7 +29,7 @@ export const CCEmailInput = (
   return (
     <TextInput
       rightSection={rightSection}
-      label="登録メールアドレス"
+      label="既にカップル相手が登録している場合はメールアドレスを入力してください。"
       placeholder="メールアドレスを入力してください。"
       {...props}
     />

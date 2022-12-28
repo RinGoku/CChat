@@ -27,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
   const { idToken, ...rest } = await response.json();
-  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken);
+  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken, email);
   res.status(200).json({ status: "ok" });
 };
 

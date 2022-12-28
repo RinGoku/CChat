@@ -39,7 +39,7 @@ const SignUp = () => {
           variant="gradient"
           size="md"
           fullWidth
-          gradient={{ from: "teal", to: "lime", deg: 105 }}
+          gradient={{ from: "#f6e0fc", to: "#90adff", deg: 105 }}
         >
           登録
         </Button>

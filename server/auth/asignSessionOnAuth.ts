@@ -6,7 +6,8 @@ export const asignSessionOnAuth = (
   res: NextApiResponse,
   idToken: string,
   uid: string,
-  refreshToken: string
+  refreshToken: string,
+  email: string
 ) => {
   setCookie({ res }, cookieIdMap.session, idToken, commonCookieOptions);
   setCookie({ res }, cookieIdMap.uid, uid, commonCookieOptions);
@@ -16,4 +17,5 @@ export const asignSessionOnAuth = (
     refreshToken,
     commonCookieOptions
   );
+  setCookie({ res }, cookieIdMap.email, email, commonCookieOptions);
 };

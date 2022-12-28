@@ -1,4 +1,4 @@
-export const cookieId = ["session", "uid", "refreshToken"] as const;
+export const cookieId = ["session", "uid", "refreshToken", "email"] as const;
 
 export const cookieIdMap = Object.fromEntries(
   cookieId.map((code) => [code, code])

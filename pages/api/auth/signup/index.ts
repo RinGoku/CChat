@@ -47,7 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(401).json({ code: errorCodeMap["auth/failed-confirm-email"] });
     return;
   }
-  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken);
+  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken, email);
   res.status(200).json({ status: "ok" });
 };
 

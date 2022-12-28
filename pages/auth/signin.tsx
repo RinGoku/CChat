@@ -51,7 +51,7 @@ const SignIn = () => {
           variant="gradient"
           size="md"
           fullWidth
-          gradient={{ from: "pink", to: "skyblue", deg: 105 }}
+          gradient={{ from: "#cae5fa", to: "#90adff", deg: 105 }}
         >
           ログイン
         </Button>

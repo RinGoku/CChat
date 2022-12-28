@@ -2,6 +2,7 @@ import { Button, Container, Paper } from "@mantine/core";
 import { useMutation } from "@tanstack/react-query";
 import { showCCNotification } from "components/common/helper/CCNotification";
 import { CCBirthDayInput } from "components/input/CCBirthDayInput";
+import { CCEmailPairInput } from "components/input/CCEmailPairInput";
 import { CCGenderInput, Gender } from "components/input/CCGenderInput";
 import { CCNameInput } from "components/input/CCNameInput";
 import { useInput } from "hooks/common/useInput";
@@ -16,6 +17,7 @@ const CreateUser = () => {
   const name = useInput("");
   const gender = useInput(Gender[0][0]);
   const birthDay = useInput<Date>(new Date());
+  const pairEmail = useInput("");
   const mutation = useMutation({
     mutationFn: () => {
       return fetch("/api/auth/createUser", {
@@ -24,6 +26,7 @@ const CreateUser = () => {
           name: name.value,
           birthDay: birthDay.value,
           gender: gender.value,
+          pairEmail: pairEmail.value,
         }),
       });
     },
@@ -39,16 +42,17 @@ const CreateUser = () => {
   }, [mutation]);
   return (
     <Paper withBorder shadow="md" p={30} m={30} radius="md">
-      <CCNameInput {...name} mt="xs" />
-      <CCGenderInput {...gender} mt="xs" />
-      <CCBirthDayInput {...birthDay} mt="xs" />
-      <Container mt="xs" p="0" ta="right">
+      <CCNameInput {...name} />
+      <CCGenderInput {...gender} mt="md" />
+      <CCBirthDayInput {...birthDay} mt="md" />
+      <CCEmailPairInput {...pairEmail} mt="md" />
+      <Container mt="xl" p="0" ta="right">
         <Button
           onClick={onClickSubmit}
           variant="gradient"
           size="md"
           fullWidth
-          gradient={{ from: "pink", to: "skyblue", deg: 105 }}
+          gradient={{ from: "pink", to: "skyblue", deg: 60 }}
         >
           会員情報を登録する
         </Button>
