@@ -1,6 +1,6 @@
 import { Brand } from "types/common/brand";
-import { isString } from "types/commonGuard";
-import { PreconditionError } from "types/error";
+import { isString } from "types/common/commonGuard";
+import { PreconditionError } from "types/common/error";
 
 // type Brand<K, T> = K & { __brand: T };
 export type FilledString = Brand<string, "FilledString">;

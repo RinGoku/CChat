@@ -14,7 +14,7 @@ const SignUp = () => {
   const password = useInput("");
   const mutation = useMutation({
     mutationFn: () => {
-      return fetch("/api/auth/signup", {
+      return fetch("/api/auth/signin", {
         method: "POST",
         body: JSON.stringify({
           email: email.value,
@@ -27,9 +27,7 @@ const SignUp = () => {
     const response = await mutation.mutateAsync();
     if (response.ok) {
       showCCNotification({
-        title: `仮登録完了がしました！`,
-        message:
-          "入力されたメールアドレスに本登録用のメールを送信しました。ご確認の上、本登録をお願いします。",
+        message: "ログイン成功しました！",
         type: "success",
       });
     } else {
@@ -52,9 +50,9 @@ const SignUp = () => {
           variant="gradient"
           size="md"
           fullWidth
-          gradient={{ from: "teal", to: "lime", deg: 105 }}
+          gradient={{ from: "pink", to: "skyblue", deg: 105 }}
         >
-          登録
+          ログイン
         </Button>
       </Container>
     </Paper>

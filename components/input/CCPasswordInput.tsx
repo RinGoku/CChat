@@ -6,19 +6,21 @@ import {
   Anchor,
   Tooltip,
 } from "@mantine/core";
+import { ReturnTypeUseInput } from "hooks/common/useInput";
 import { useState } from "react";
 import { passwordSetting } from "utils/appSetting";
 
 export const CCPasswordInput = ({
   className,
   style,
+  value,
+  onChange,
   ...others
-}: PasswordInputProps) => {
+}: PasswordInputProps & ReturnTypeUseInput<string>) => {
   const [opened, setOpened] = useState(false);
-  const [value, setValue] = useState("");
   const valid =
-    value.trim().length >= passwordSetting.min &&
-    value.match(passwordSetting.regex);
+    value?.trim?.().length >= passwordSetting.min &&
+    value?.match?.(passwordSetting.regex);
   return (
     <Tooltip
       label={
@@ -26,20 +28,20 @@ export const CCPasswordInput = ({
           ? "OK!"
           : "パスワードは８文字以上の英大文字英小文字数字混在で入力してください。"
       }
-      position="bottom-start"
+      position="top-start"
       withArrow
       opened={opened}
       color={valid ? "teal" : undefined}
     >
       <PasswordInput
-        label="Tooltip shown onFocus"
+        label="パスワード"
         required
-        placeholder="Your password"
+        placeholder="パスワードを入力してください。"
         onFocus={() => setOpened(true)}
         onBlur={() => setOpened(false)}
         mt="md"
         value={value}
-        onChange={(event) => setValue(event.currentTarget.value)}
+        onChange={onChange}
       />
     </Tooltip>
   );

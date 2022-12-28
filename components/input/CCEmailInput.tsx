@@ -9,8 +9,9 @@ import {
   TextInput,
 } from "@mantine/core";
 import { IconInfoCircle } from "@tabler/icons";
+import { ReturnTypeUseInput } from "hooks/common/useInput";
 
-export const CCEmailInput = () => {
+export const CCEmailInput = (props: ReturnTypeUseInput<string>) => {
   const rightSection = (
     <Tooltip
       label="メールアドレスを入力してください。"
@@ -29,8 +30,9 @@ export const CCEmailInput = () => {
   return (
     <TextInput
       rightSection={rightSection}
-      label="Tooltip shown on icon hover"
-      placeholder="Your email"
+      label="登録メールアドレス"
+      placeholder="メールアドレスを入力してください。"
+      {...props}
     />
   );
 };
