@@ -1,6 +1,7 @@
 import { errorCodeMap } from "error/code";
 import { NextApiHandler, NextApiResponse } from "next";
 import { setCookie } from "nookies";
+import { asignSessionOnAuth } from "server/auth/asignSessionOnAuth";
 import { commonCookieOptions, cookieIdMap } from "server/cookie";
 
 const signUp = async (email: string, password: string) => {
@@ -33,11 +34,6 @@ const confirmMail = async (token: string) => {
   );
 };
 
-const assignSession = (res: NextApiResponse, idToken: string, uid: string) => {
-  setCookie({ res }, cookieIdMap.session, idToken, commonCookieOptions);
-  setCookie({ res }, cookieIdMap.uid, uid, commonCookieOptions);
-};
-
 const handler: NextApiHandler = async (req, res) => {
   const { email, password } = JSON.parse(req.body);
   const response = await signUp(email, password);
@@ -51,7 +47,7 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(401).json({ code: errorCodeMap["auth/failed-confirm-email"] });
     return;
   }
-  assignSession(res, idToken, rest.localId);
+  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken);
   res.status(200).json({ status: "ok" });
 };
 

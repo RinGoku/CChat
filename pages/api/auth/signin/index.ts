@@ -1,6 +1,7 @@
 import { errorCodeMap } from "error/code";
 import { NextApiHandler, NextApiResponse } from "next";
 import { setCookie } from "nookies";
+import { asignSessionOnAuth } from "server/auth/asignSessionOnAuth";
 import { commonCookieOptions, cookieIdMap } from "server/cookie";
 
 const signIn = async (email: string, password: string) => {
@@ -18,11 +19,6 @@ const signIn = async (email: string, password: string) => {
   );
 };
 
-const assignSession = (res: NextApiResponse, idToken: string, uid: string) => {
-  setCookie({ res }, cookieIdMap.session, idToken, commonCookieOptions);
-  setCookie({ res }, cookieIdMap.uid, uid, commonCookieOptions);
-};
-
 const handler: NextApiHandler = async (req, res) => {
   const { email, password } = JSON.parse(req.body);
   const response = await signIn(email, password);
@@ -31,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
     return;
   }
   const { idToken, ...rest } = await response.json();
-  assignSession(res, idToken, rest.localId);
+  asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken);
   res.status(200).json({ status: "ok" });
 };
 

@@ -2,6 +2,7 @@ import { MantineProvider } from "@mantine/core";
 import type { AppType } from "next/app";
 import { trpc } from "../utils/trpc";
 import { NotificationsProvider } from "@mantine/notifications";
+import { GetServerSideProps } from "next";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (

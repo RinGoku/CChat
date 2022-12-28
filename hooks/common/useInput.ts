@@ -2,7 +2,7 @@ import { useInputState } from "@mantine/hooks";
 
 export const useInput = <T>(initialState: T) => {
   const [value, onChange] = useInputState(initialState);
-  return { value, onChange };
+  return { value, onChange } as const;
 };
 
 class UseInputWrapper<T> {

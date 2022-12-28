@@ -1,27 +1,22 @@
 import { Button, Container, Paper } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
-import { useMutation } from "@tanstack/react-query";
 import { showCCNotification } from "components/common/helper/CCNotification";
 import { CCEmailInput } from "components/input/CCEmailInput";
 import { CCPasswordInput } from "components/input/CCPasswordInput";
-import { errorCodeToMessage } from "error/code";
-import { asErrorInfo, isErrorInfo } from "error/types";
+import { useCCMutation } from "hooks/common/api/useCCMutation";
 import { useInput } from "hooks/common/useInput";
 import { useCallback } from "react";
 
 const SignUp = () => {
   const email = useInput("");
   const password = useInput("");
-  const mutation = useMutation({
-    mutationFn: () => {
-      return fetch("/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-      });
-    },
+  const mutation = useCCMutation(() => {
+    return fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
   });
   const onClickSubmit = useCallback(async () => {
     const response = await mutation.mutateAsync();
@@ -32,18 +27,10 @@ const SignUp = () => {
           "入力されたメールアドレスに本登録用のメールを送信しました。ご確認の上、本登録をお願いします。",
         type: "success",
       });
-    } else {
-      const json = await response.json();
-      if (isErrorInfo(json)) {
-        showCCNotification({
-          message: errorCodeToMessage[json.code],
-          type: "error",
-        });
-      }
     }
   }, [mutation]);
   return (
-    <Paper shadow="xs" m="md" p="md">
+    <Paper withBorder shadow="md" p={30} m={30} radius="md">
       <CCEmailInput {...email} />
       <CCPasswordInput {...password} />
       <Container mt="xs" p="0" ta="right">

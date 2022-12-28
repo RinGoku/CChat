@@ -7,9 +7,7 @@ import { trpc } from "utils/trpc";
 import { useGetTokenFCM } from "components/chat/useGetTokenFCM";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import channels from "pages/channels";
 import { firebaseCloudMessaging } from "utils/firebase";
-import firebase from "firebase/app";
 import { getMessaging, onMessage } from "firebase/messaging";
 
 const Channel = () => {
