@@ -44,7 +44,7 @@ const handler: NextApiHandler = async (req, res) => {
   const { idToken, ...rest } = await response.json();
   const confirmedEmail = await confirmMail(idToken);
   if (!confirmedEmail.ok) {
-    res.status(401).json({ code: errorCodeMap["auth/failed-confirm-email"] });
+    res.status(500).json({ code: errorCodeMap["auth/failed-confirm-email"] });
     return;
   }
   asignSessionOnAuth(res, idToken, rest.localId, rest.refreshToken, email);
