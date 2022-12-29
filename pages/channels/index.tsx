@@ -1,3 +1,6 @@
+import { Button } from "@mantine/core";
+import { CCChannelNameInput } from "components/input/CCChannelNameInput";
+import { useInput } from "hooks/common/useInput";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -13,10 +16,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
 const Channel = () => {
   const { data: channels } = trpc.channels.useQuery({ coupleId: 1 });
+  const channel = useInput("");
   return (
     <div>
       {channels?.channels.map((c) => c.name)}
-      <Link href="/">Go home</Link>
+      <CCChannelNameInput {...channel} />
+      <Button>チャンネル作成</Button>
     </div>
   );
 };
