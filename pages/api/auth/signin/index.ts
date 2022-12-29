@@ -23,7 +23,7 @@ const handler: NextApiHandler = async (req, res) => {
   const { email, password } = JSON.parse(req.body);
   const response = await signIn(email, password);
   if (!response.ok) {
-    res.status(401).json({ code: errorCodeMap["auth/registered-email"] });
+    res.status(401).json({ code: errorCodeMap["auth/failed-signin"] });
     return;
   }
   const { idToken, ...rest } = await response.json();

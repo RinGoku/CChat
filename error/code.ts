@@ -4,6 +4,10 @@ export const errorCodes = [
     "auth/failed-confirm-email",
     "ユーザー登録に失敗しました。しばらくしてからもう一度お試しください。",
   ],
+  [
+    "auth/failed-signin",
+    "ログインに失敗しました。メールアドレスかパスワードが間違っています。",
+  ],
 ] as const;
 
 export const errorCodeMap = Object.fromEntries(
