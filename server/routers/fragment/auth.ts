@@ -79,7 +79,6 @@ export const authFragment = {
       const { email, password } = input;
       const response = await signIn(email, password);
       console.log(email, password);
-      console.log(await response.json());
       if (!response.ok) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
