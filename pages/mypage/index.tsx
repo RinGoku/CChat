@@ -1,4 +1,5 @@
 import { Button } from "@mantine/core";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { useCallback } from "react";
@@ -17,6 +18,8 @@ const MyPage = () => {
     <div>
       {result?.data?.user?.name}
       <Button onClick={logout}>ログアウト</Button>
+      <Link href="/channels">Channel</Link>
+      <Link href="/chat">Chat</Link>
     </div>
   );
 };
