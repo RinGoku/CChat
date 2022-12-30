@@ -21,7 +21,7 @@ const Chat = () => {
   const chat = useInput("");
   const chats = trpc.chats.useQuery({
     channelId: 1,
-  }).data.chats;
+  })?.data?.chats;
   const updateDeviceToken = trpc.updateDeviceToken.useMutation();
   useEffect(() => {
     setToken();
