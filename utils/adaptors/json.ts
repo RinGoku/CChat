@@ -8,3 +8,12 @@ export const parseJSONAsync = async <T>(target: string) => {
     }
   }).catch(() => target);
 };
+
+export const parseJSONSafe = async <T>(target: string) => {
+  try {
+    const json = JSON.parse(target);
+    return json;
+  } catch (e) {
+    return target;
+  }
+};

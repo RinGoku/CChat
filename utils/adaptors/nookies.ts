@@ -1,5 +1,6 @@
 import { parseCookies, setCookie } from "nookies";
 import { commonCookieOptions, cookieIdMap } from "server/cookie";
+import { parseJSONSafe } from "utils/adaptors/json";
 
 type SetCookieParams = Parameters<typeof setCookie>;
 
@@ -13,7 +14,7 @@ export const parseCookiesCC = (...args: ParseCookieParams) => {
   const parsedCookies = parseCookies(args[0]);
   return Object.entries(parsedCookies).reduce((acc, [key, value]) => {
     try {
-      return { ...acc, [key]: JSON.parse(value)[key] };
+      return { ...acc, [key]: parseJSONSafe(value)?.[key] };
     } catch (error) {
       return { ...acc, [key]: value };
     }
