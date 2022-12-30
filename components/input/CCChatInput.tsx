@@ -29,7 +29,6 @@ export const CCChatInput = (
   return (
     <TextInput
       rightSection={rightSection}
-      label="チャット内容"
       placeholder="チャット内容を入力してください"
       {...props}
     />
