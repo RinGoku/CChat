@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
-import { setCookie } from "nookies";
 import { cookieIdMap, commonCookieOptions } from "server/cookie";
+import { setCookieCC } from "utils/adaptors/nookies";
 
 export const asignSessionOnAuth = (
   res: NextApiResponse,
@@ -9,13 +9,13 @@ export const asignSessionOnAuth = (
   refreshToken: string,
   email: string
 ) => {
-  setCookie({ res }, cookieIdMap.session, idToken, commonCookieOptions);
-  setCookie({ res }, cookieIdMap.uid, uid, commonCookieOptions);
-  setCookie(
+  setCookieCC({ res }, cookieIdMap.session, idToken, commonCookieOptions);
+  setCookieCC({ res }, cookieIdMap.uid, uid, commonCookieOptions);
+  setCookieCC(
     { res },
     cookieIdMap.refreshToken,
     refreshToken,
     commonCookieOptions
   );
-  setCookie({ res }, cookieIdMap.email, email, commonCookieOptions);
+  setCookieCC({ res }, cookieIdMap.email, email, commonCookieOptions);
 };

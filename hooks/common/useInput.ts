@@ -5,6 +5,7 @@ export const useInput = <T>(initialState: T) => {
   return { value, onChange } as const;
 };
 
+// ジェネリクス指定をすると、ReturnTypeがうまく動かないので、classでラップすると上手くいくトリック
 class UseInputWrapper<T> {
   useInput = (initialState: T) => useInput(initialState);
 }

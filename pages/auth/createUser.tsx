@@ -1,13 +1,12 @@
 import { Button, Container, Paper } from "@mantine/core";
-import { useMutation } from "@tanstack/react-query";
 import { showCCNotification } from "components/common/helper/CCNotification";
 import { CCBirthDayInput } from "components/input/CCBirthDayInput";
 import { CCEmailPairInput } from "components/input/CCEmailPairInput";
 import { CCGenderInput, Gender } from "components/input/CCGenderInput";
 import { CCNameInput } from "components/input/CCNameInput";
 import { useInput } from "hooks/common/useInput";
-import { GetServerSideProps } from "next";
 import { useCallback } from "react";
+import { trpc } from "utils/trpc";
 
 // export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 //   return undefined;
@@ -18,28 +17,25 @@ const CreateUser = () => {
   const gender = useInput(Gender[0][0]);
   const birthDay = useInput<Date>(new Date());
   const pairEmail = useInput("");
-  const mutation = useMutation({
-    mutationFn: () => {
-      return fetch("/api/auth/createUser", {
-        method: "POST",
-        body: JSON.stringify({
-          name: name.value,
-          birthDay: birthDay.value,
-          gender: gender.value,
-          pairEmail: pairEmail.value,
-        }),
-      });
+  const mutation = trpc.createUser.useMutation({
+    onSuccess: () => {
+      trpc.useContext().user.reset();
     },
   });
   const onClickSubmit = useCallback(async () => {
-    const response = await mutation.mutateAsync();
-    if (response.ok) {
+    const response = await mutation.mutateAsync({
+      name: name.value,
+      birthDay: birthDay.value,
+      gender: gender.value,
+      pairEmail: pairEmail.value,
+    });
+    if (response.user) {
       showCCNotification({
         message: `会員登録が完了しました！`,
         type: "success",
       });
     }
-  }, [mutation]);
+  }, [mutation, name, gender, birthDay, pairEmail]);
   return (
     <Paper withBorder shadow="md" p={30} m={30} radius="md">
       <CCNameInput {...name} />

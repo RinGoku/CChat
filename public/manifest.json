@@ -1,20 +1,18 @@
 {
-  "name": "Service Worker Sample",
-  "short_name": "sw sample",
+  "theme_color": "#cae5fa",
+  "background_color": "#cae5fa",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "CoupleChat",
+  "short_name": "CChat",
+  "description": "カップルで繋がるチャットサービスです",
   "icons": [
     {
       "src": "/images/144.png",
       "sizes": "144x144",
       "type": "image/png"
-    },
-    {
-      "src": "/images/192.png",
-      "sizes": "192x192",
-      "type": "image/png"
     }
   ],
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "#e91e63",
   "gcm_sender_id": "103953800507"
 }

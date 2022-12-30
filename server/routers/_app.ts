@@ -1,36 +1,14 @@
-import { PrismaClient } from "@prisma/client";
-import { z } from "zod";
-import { procedure, router } from "../trpc";
-
-const prisma = new PrismaClient();
+import { router } from "../trpc";
+import { channelFragment } from "server/routers/fragment/channels";
+import { chatFragment } from "server/routers/fragment/chats";
+import { userFragment } from "server/routers/fragment/user";
+import { authFragment } from "server/routers/fragment/auth";
 
 export const appRouter = router({
-  channels: procedure
-    .input(
-      z.object({
-        coupleId: z.number(),
-      })
-    )
-    .query(async ({ input }) => {
-      return {
-        channels: await prisma.channel.findMany({
-          where: { coupleId: input.coupleId },
-        }),
-      };
-    }),
-  chats: procedure
-    .input(
-      z.object({
-        channelId: z.number(),
-      })
-    )
-    .query(async ({ input }) => {
-      return {
-        channels: await prisma.chat.findMany({
-          where: { channelId: input.channelId },
-        }),
-      };
-    }),
+  ...userFragment,
+  ...channelFragment,
+  ...chatFragment,
+  ...authFragment,
 });
 
 export type AppRouter = typeof appRouter;

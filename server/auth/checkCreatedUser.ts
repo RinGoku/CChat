@@ -1,10 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { parseCookies } from "nookies";
 import { cookieIdMap } from "server/cookie";
+import { parseCookiesCC } from "utils/adaptors/nookies";
 
 const prisma = new PrismaClient();
 export const checkCreatedUser = async (req, destination: string) => {
-  const parsedCookies = parseCookies({ req });
+  const parsedCookies = parseCookiesCC({ req });
   const uid = parsedCookies[cookieIdMap.uid];
   if (!uid) {
     return undefined;

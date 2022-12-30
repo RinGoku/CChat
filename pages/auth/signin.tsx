@@ -9,36 +9,36 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { checkCreatedUser } from "server/auth/checkCreatedUser";
 import { defaultGetServerSideProps } from "server/auth/setting";
+import { trpc } from "utils/trpc";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  return (
-    (await checkCreatedUser(req, "/channels")) ?? defaultGetServerSideProps
-  );
+  return (await checkCreatedUser(req, "/mypage")) ?? defaultGetServerSideProps;
 };
 
 const SignIn = () => {
   const email = useInput("");
   const password = useInput("");
-  const mutation = useMutation({
-    mutationFn: () => {
-      return fetch("/api/auth/signin", {
-        method: "POST",
-        body: JSON.stringify({
-          email: email.value,
-          password: password.value,
-        }),
-      });
-    },
-  });
+  const mutation = trpc.signIn.useMutation();
   const router = useRouter();
   const onClickSubmit = useCallback(async () => {
-    const response = await mutation.mutateAsync();
-    if (response.ok) {
+    const response = await mutation
+      .mutateAsync({
+        email: email.value,
+        password: password.value,
+      })
+      .catch((e) => {
+        showCCNotification({
+          message: e.message,
+          type: "error",
+        });
+        return null;
+      });
+    if (response !== null) {
       showCCNotification({
         message: "ログイン成功しました！",
         type: "success",
       });
-      router.push("/");
+      router.push("/mypage");
     }
   }, [mutation]);
   return (

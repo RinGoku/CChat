@@ -18,6 +18,7 @@ model User {
   name String
   gender String
   birthDay DateTime
+  deviceToken String?
   chart Chat[]
   coupleId Int
   couple Couple @relation(fields: [coupleId], references: [id])
@@ -36,8 +37,9 @@ model Chat {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@index([userId])
   channelId Int
-  chat Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
   @@index([channelId])
+  text String
 }
 
 model Channel {

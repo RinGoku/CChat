@@ -2,25 +2,28 @@ import { Button, Container, Paper } from "@mantine/core";
 import { showCCNotification } from "components/common/helper/CCNotification";
 import { CCEmailInput } from "components/input/CCEmailInput";
 import { CCPasswordInput } from "components/input/CCPasswordInput";
-import { useCCMutation } from "hooks/common/api/useCCMutation";
 import { useInput } from "hooks/common/useInput";
 import { useCallback } from "react";
+import { trpc } from "utils/trpc";
 
 const SignUp = () => {
   const email = useInput("");
   const password = useInput("");
-  const mutation = useCCMutation(() => {
-    return fetch("/api/auth/signup", {
-      method: "POST",
-      body: JSON.stringify({
+  const mutation = trpc.signUp.useMutation();
+  const onClickSubmit = useCallback(async () => {
+    const response = await mutation
+      .mutateAsync({
         email: email.value,
         password: password.value,
-      }),
-    });
-  });
-  const onClickSubmit = useCallback(async () => {
-    const response = await mutation.mutateAsync();
-    if (response.ok) {
+      })
+      .catch((e) => {
+        showCCNotification({
+          message: e.message,
+          type: "error",
+        });
+        return null;
+      });
+    if (response !== null) {
       showCCNotification({
         title: `仮登録完了がしました！`,
         message:

@@ -1,32 +1,24 @@
-import { PrismaClient } from "@prisma/client";
-import { User } from "interfaces";
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
+import { Button } from "@mantine/core";
+import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
+import { useCallback } from "react";
 import { cookieIdMap } from "server/cookie";
+import { trpc } from "utils/trpc";
 
-const prisma = new PrismaClient();
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const parsedCookies = parseCookies({ req });
-  const uid = parsedCookies[cookieIdMap.uid];
-  if (!uid) {
-    return undefined;
-  }
-  const user = await prisma.user.findMany({
-    where: {
-      firebaseId: uid,
-    },
-  });
-  console.log(user);
-  return {
-    props: {
-      user: JSON.stringify(user[0]),
-    },
-  };
-};
-
-const MyPage = ({ user: userJson }) => {
-  const user = JSON.parse(userJson);
-  return <div>{user.name}</div>;
+const MyPage = () => {
+  const mutation = trpc.signOut.useMutation();
+  const router = useRouter();
+  const logout = useCallback(async () => {
+    await mutation.mutateAsync();
+    router.push("/auth/signin");
+  }, []);
+  const result = trpc.user.useQuery();
+  return (
+    <div>
+      {result?.data?.user?.name}
+      <Button onClick={logout}>ログアウト</Button>
+    </div>
+  );
 };
 
 export default MyPage;
