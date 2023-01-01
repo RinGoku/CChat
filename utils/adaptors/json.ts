@@ -17,3 +17,23 @@ export const parseJSONSafe = (target: string) => {
     return target;
   }
 };
+
+export const stringifyJSONAsync = async <T>(target: unknown) => {
+  return await new Promise<T>((resolve, reject) => {
+    try {
+      const json = JSON.stringify(target);
+      resolve(json as T);
+    } catch (e) {
+      reject(e);
+    }
+  }).catch(() => target);
+};
+
+export const stringifyJSONSafe = (target: unknown) => {
+  try {
+    const json = JSON.stringify(target);
+    return json;
+  } catch (e) {
+    return target;
+  }
+};

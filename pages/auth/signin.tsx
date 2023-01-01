@@ -38,7 +38,7 @@ const SignIn = () => {
         message: "ログイン成功しました！",
         type: "success",
       });
-      router.push("/mypage");
+      router.push("/channels/list");
     }
   }, [mutation]);
   return (
