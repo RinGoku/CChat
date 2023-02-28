@@ -1,6 +1,10 @@
 Firebase Cloud Messagingを使ったチャットアプリの作成という感じで素振りした跡地です。
 カップルで使うチャットアプリと想定してエンティティを設計しました。
 ついでにいくつか触ってみたい技術も使ってみました。
+
+## URL
+https://c-chat-opal.vercel.app/auth/signin
+
 ## 構成
 ### Front
 
