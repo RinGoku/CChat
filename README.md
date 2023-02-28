@@ -3,7 +3,7 @@ Firebase Cloud Messagingを使ったチャットアプリの作成という感�
 ついでにいくつか触ってみたい技術も使ってみました。
 
 ## URL
-https://c-chat-opal.vercel.app/auth/signin
+https://c-chat-opal.vercel.app
 
 ## 構成
 ### Front
